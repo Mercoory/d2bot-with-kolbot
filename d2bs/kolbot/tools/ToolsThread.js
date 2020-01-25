@@ -405,7 +405,29 @@ function main() {
 
 			break;
 		case 110: // decimal point
-			say("/fps");
+			switch (miscInfos) {
+				case -1:
+				case undefined:
+					load("tools/miscInfos.js");
+					miscInfos = 1;
+					var miscInfosThread = getScript("tools/miscInfos.js");
+					scriptBroadcast("miscInfos " + miscInfos);
+					break;
+				case 0:
+					miscInfos++;
+					load("tools/miscInfos.js");
+					scriptBroadcast("miscInfos " + miscInfos);
+					break;
+				case 1:
+				case 2:
+					miscInfos++;
+					scriptBroadcast("miscInfos " + miscInfos);
+					break;
+				case 3:
+					miscInfos = 0;
+					scriptBroadcast("miscInfos " + miscInfos);
+					break;
+			}
 
 			break;
 		case 105: // numpad 9 - get nearest preset unit id
